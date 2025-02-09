@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="Stylesheet" href="./manager.css">
+    <link rel="icon" type="image/x-icon" href="../../Images/favIcon/logo.ico">
+    <title>Manage Your Contact</title>
+</head>
+<body>
+
+    <p class="heading">Contact Manager</p>
+    
+    <!-- Left Box Container -->
+    <div class="left-container">
+        <!-- Add Contact Component -->
+        <div class="add-container">
+    
+            <!-- Add Box Component -->
+            <div class="add-component">
+                <div class="add-box">
+
+                    <p>Add Contact</p>
+
+                    <div class="add-items">
+                        <input type="text" class="input-text-box" placeholder="Name">
+    
+                        <input type="text" class="input-text-box" placeholder="Phone">
+                
+                        <input type="text" class="input-text-box" placeholder="Email">
+    
+                        <button class="add-button">Add</button>   
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- Right Box Container -->
+    <div class="right-container">
+        <!-- Login Box Component -->
+        <div class="login-container">
+            <div class="login-box">
+                <div class="login-items">
+                    <p>Contact List</p>
+
+                    <input type="text" class="input-text-box" placeholder="Search">
+                </div>
+
+                <!-- Contact List Component -->
+                <div class="contact-list"> 
+                    <div class="list-info">
+                        <p class="list-name">Name</p>
+                        <p class="list-phone">Phone</p>
+                        <p class="list-email">Email</p>
+                        <p class="list-action">Actions</p>
+                    </div>
+
+                    <div class="added-person">
+                        <p>John Doe</p>
+                        <p>123-456-7890</p>
+                        <p>john@doe.com</p>
+                        <button class="delete-button">Delete</button> 
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <button class="logout-button" onclick="window.location.href = '../../index.html';">Log Out</button>
+    
+</body>
+</html>

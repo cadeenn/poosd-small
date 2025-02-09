@@ -1,0 +1,299 @@
+body {
+    background: #0D1116;
+    display: flex;
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden
+}
+
+p {
+    color: #E5EBF2;
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+    font-weight: lighter;
+    font-size: 12px;
+}
+
+input:focus {
+    outline: 1.3px;
+    outline-style: solid;
+    outline-color: #0969DA;
+}
+
+.heading {
+    position: absolute;
+    top: 5px;
+    left: 460px;
+    color: #E5EBF2;
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+    font-weight: 400;
+    font-size: 38px;
+}
+
+.logout-button {
+    position: absolute;
+    top: 105px;
+    left: 470px;
+
+    width: 22%;
+    margin-top: 0px;
+    margin-left: -4px;
+    padding: 9px;
+    border: none;
+    border-radius: 4px;
+    background-color: #DC3544;
+    transition-duration: 0.4s;
+
+    color: #E5EBF2;
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.left-container {
+    width: 40%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: none;
+    padding: none;
+    overflow: hidden;
+}
+
+.right-container {
+    width: 60%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: none;
+    padding: none;
+    overflow: hidden;
+}
+
+/***Left Add Contact***/
+.add-container {
+    width: 100%;
+    text-align: center;
+    position: relative;
+    top: 40px;
+}
+
+.add-component {
+    width: 100%;
+    position: relative;
+    top: -10px;
+    margin-left: -10px;
+    display: flex;
+    justify-content: center; 
+}
+
+.add-box{
+    width: 80%;
+    height: 325px;
+    text-align: center;
+    background: #161C23;
+    border: 1px solid #323f4d;
+    border-radius: 4px;
+}
+
+.add-box p {
+    position: relative;
+    text-align: left;
+    top: 10px;
+    padding-left: 16px;
+    color: #0969DA;
+    font-size: 24px;
+    font-weight: 500;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.add-items {
+    position:relative;
+    top: 5px
+}
+
+.add-items p{
+    text-align: left;
+    margin-left: 10px;
+    padding: 2px;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.add-items input{
+    width: 86%;
+    display: flex;
+    padding: 10px;
+    margin-left: 15px;
+    margin-top: 0px;
+    margin-bottom: 20px;
+    border: 1px solid #323f4d;
+    border-radius: 5px;
+}
+
+.add-button {
+    width: 92%;
+    margin-top: 0px;
+    margin-left: -4px;
+    padding: 9px;
+    border: none;
+    border-radius: 4px;
+    background-color: #238636;
+    transition-duration: 0.4s;
+
+    color: #E5EBF2;
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.add-button:hover {
+    background-color: #1b6b2b;
+    box-shadow: #0D1116;
+    cursor: pointer;
+}
+
+
+/***Right Contact Form***/
+
+/*Right Sign Up Component*/
+.login-container {
+    width: 100%;
+    position: relative;
+    top: 30px;
+    margin-left: -10px;
+    display: flex;
+    justify-content: center; 
+}
+
+.login-box{
+    position: relative;
+    left: -10px;
+    
+    width: 95%;
+    height: 325px;
+    text-align: center;
+    background: #161C23;
+    border: 1px solid #323f4d;
+    border-radius: 4px;
+}
+
+.login-box p {
+    position: relative;
+    text-align: left;
+    top: 10px;
+    padding-left: 16px;
+    color: #0969DA;
+    font-size: 24px;
+    font-weight: 500;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.login-items {
+    position:relative;
+    top: 5px
+}
+
+.login-items input{
+    width: 93%;
+    display: flex;
+    padding: 10px;
+    margin-left: 16px;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    border: 1px solid #323f4d;
+    border-radius: 5px;
+}
+
+.contact-list {
+    width: 100%;
+    position: relative;
+    top: 13px;    
+}
+
+.list-info {
+    width: 96%;
+    height: 40px;
+    position: relative;
+    left: 15px;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    align-items: center;
+    gap: 30px;
+    background-color: #017BFF;
+    border: 1px solid #323f4d;
+    border-radius: 2px;
+}
+
+.list-info p {
+    padding-bottom: 20px;
+    color: #E5EBF2;
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+    font-size: 12px;
+}
+
+.list-name {
+    position: relative;
+    left: -20px;
+}
+
+.list-phone {
+    position: relative;
+    left: -40px;
+}
+
+.list-email {
+    position: relative;
+    left: -40px;
+}
+
+.list-action {
+    position: relative;
+    left: -40px;
+}
+
+.added-person {
+    width: 96%;
+    height: 50px;
+    position: relative;
+    left: 16px;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    align-items: center;
+    gap: 30px;
+    border-bottom: 1px solid #323f4d;
+}
+
+.added-person p {
+    padding-bottom: 20px;
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+    font-size: 12px;
+}
+
+.delete-button {
+    width: 15%;
+    margin-top: 0px;
+    margin-left: -4px;
+    padding: 9px;
+    border: none;
+    border-radius: 4px;
+    background-color: #DC3544;
+    transition-duration: 0.4s;
+
+    color: #E5EBF2;
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.delete-button:hover {
+    background-color: #ae2b36;
+    box-shadow: #0D1116;
+    cursor: pointer;
+}
+
