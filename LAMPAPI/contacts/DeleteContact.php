@@ -12,7 +12,7 @@
     $firstName = $data['firstName'];
     $lastName = $data['lastName'];
     $email = $data['email']; 
-    $ownerID = $data['owneriD'];     
+    $ownerID = $data['ownerID'];     
 
     // SQL query to insert data
     $sql = "DELETE FROM Contacts WHERE FirstName = ? AND LastName = ? AND email = ? AND ownerID = ?";
