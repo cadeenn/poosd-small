@@ -26,7 +26,7 @@ function doLogin(event) {
 
     let tmp = { username: login, password: password }; 
     let jsonPayload = JSON.stringify(tmp);
-    let url = "http://group6.cadeen.me/LAMPAPI/users/Login.php";
+    let url = "http://group6.cadeen.me/LAMPAPI/users/login.php";
  
 
     console.log("doLogin still working"); //Checking
