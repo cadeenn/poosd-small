@@ -17,23 +17,26 @@
     <p class="welcome-text">Sign in to ContactHub</p>
 
     <!-- Login Box Component -->
-    <div class="login-container">
-        <div class="login-box">
-            <div class="login-items">
-            
+<div class="login-container">
+    <div class="login-box">
+        <div class="login-items">
+
+            <form id="loginForm">
                 <p>Username or Email Address</p>
-                <input type="text" class="input-text-box">
-            
+                <input type="text" id="username" required>
+
                 <p>Password</p>
-                <input type="password" id="password" class="input-password-box">
+                <input type="password" id="password" class="input-password-box" required>
                 <img src="./Images/Password/show.png" class="eye-icon" id="eyeIcon" onclick="togglePassword()" alt="Show Password">
-                
-                <button class="login-button" onclick="window.location.href = './Pages/Contact Manager/manager.html';">Sign In</button>
-                
-            </div>
+
+                <button type="submit" class="login-button">Sign In</button>
+                <span id="loginResult"></span>
+            </form>
+
         </div>
     </div>
-    
+</div>
+
     <!-- Create Account Component -->
     <div class = "create-container">
 
@@ -59,7 +62,8 @@
     </div>
 
     <!-- Script To JS -->
-    <script src="./JS/funtion.js"></script>
+    <script src="/JS/function.js"></script>
+    <script src="/JS/code.js"></script>
 
 </body>
 </html>
