@@ -15,7 +15,7 @@
     $ownerID = $data['ownerID'];     
 
     // SQL query to insert data
-    $sql = "DELETE FROM Contacts WHERE FirstName = ? AND LastName = ? AND email = ? AND ownerID = ?";
+    $sql = "DELETE FROM Contacts WHERE FirstName = ? AND LastName = ? AND Email = ? AND OwnerID = ?";
     $stmt = $conn->prepare($sql); 
     $stmt->bind_param("sssi", $firstName, $lastName, $email, $ownerID);  
 
