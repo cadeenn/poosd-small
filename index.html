@@ -17,6 +17,7 @@
     <p class="welcome-text">Sign in to ContactHub</p>
 
     <!-- Login Box Component -->
+<<<<<<< HEAD
 <div class="login-container">
     <div class="login-box">
         <div class="login-items">
@@ -33,6 +34,21 @@
                 <span id="loginResult"></span>
             </form>
 
+=======
+    <div class="login-container">
+        <div class="login-box">
+            <div class="login-items" id="loginItems">
+            
+                <p>Username or Email Address</p>
+                <input type="text" class="input-text-box" id="loginCredential">
+            
+                <p>Password</p>
+                <input type="password" class="input-password-box" id="loginPassword">
+                <img src="./Images/Password/show.png" class="eye-icon" id="eyeIcon" onclick="togglePassword()" alt="Show Password">
+                
+                <button class="login-button" id="loginButton" onclick="doLogin()">Sign In</button>      
+            </div>
+>>>>>>> 4e0e73b (front-end)
         </div>
     </div>
 </div>
@@ -42,7 +58,7 @@
 
         <div class="create-box">  
 
-            <a class="new-guest" href="./Pages/Contact Manager/manager.html">Sign In as a Guest</a>
+            <a class="new-guest" onclick="doLoginGuest()">Sign In as a Guest</a>
 
             <p class="new-login">New To ContactHub? <a href="./Pages/Create Account/createAccount.html">Create an Account</a></p>
 
@@ -62,8 +78,13 @@
     </div>
 
     <!-- Script To JS -->
+<<<<<<< HEAD
     <script src="/JS/function.js"></script>
     <script src="/JS/code.js"></script>
+=======
+    <script src="./JS/funtion.js"></script>
+    <script src="./JS/code.js"></script>
+>>>>>>> 4e0e73b (front-end)
 
 </body>
 </html>
