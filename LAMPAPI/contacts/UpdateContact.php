@@ -40,7 +40,7 @@
 
     // Executes SQL query and checks if it was valid 
     if ($stmt->execute()) {
-        echo json_encode(["message" => "Account has been updated"]);
+        echo json_encode(["message" => "Contact has been updated"]);
     } else {
         echo json_encode(["message" => "Failed to update Account"]); 
     }
