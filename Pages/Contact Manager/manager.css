@@ -14,8 +14,13 @@ input:focus {
 
 .heading {
     position: absolute;
+<<<<<<< HEAD
     top: 2px;
     left: 20px;
+=======
+    top: -5px;
+    left: 460px;
+>>>>>>> 4e0e73b (front-end)
     color: #E5EBF2;
     font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
     font-size: 40px;
@@ -40,8 +45,13 @@ input:focus {
 
 .logout-button {
     position: absolute;
+<<<<<<< HEAD
     top: 130px;
     left: 580px;
+=======
+    top: 90px;
+    left: 470px;
+>>>>>>> 4e0e73b (front-end)
 
     width: 12%;
     margin-top: 0px;
@@ -98,26 +108,42 @@ input:focus {
 }
 
 .add-box{
+<<<<<<< HEAD
     width: 90%;
     height: 420px;
+=======
+    width: 80%;
+    height: 355px;
+>>>>>>> 4e0e73b (front-end)
     text-align: center;
     background: #161C23;
     border: 1px solid #323f4d;
     border-radius: 4px;
 }
 
+<<<<<<< HEAD
 
 .add-contact-title {
     position: relative;
     text-align: center;
     top: -10px;
+=======
+.add-box  * {
+    position: relative;
+    top: 20px;
+}
+
+.add-box p {
+    position: relative;
+    text-align: left;
+    top: 20px;
+>>>>>>> 4e0e73b (front-end)
     padding-left: 16px;
     color: #E5EBF2;
     font-size: 30px;
     font-weight: 300;
     font-family:'Segoe UI', Tahoma, Verdana, sans-serif;
 }
-
 
 .add-items {
     position:relative;
@@ -184,9 +210,15 @@ input:focus {
 .login-box{
     position: relative;
     left: -10px;
+<<<<<<< HEAD
     width: 100%;
     max-width: 650px;
     height: 420px;
+=======
+    
+    width: 95%;
+    height: 355px;
+>>>>>>> 4e0e73b (front-end)
     text-align: center;
     background: #161C23;
     border: 1px solid #323f4d;
@@ -222,15 +254,23 @@ input:focus {
 
 .contact-list {
     width: 100%;
+    height: 43%;
     position: relative;
+<<<<<<< HEAD
     margin-top: 20px;
     top: 0;    
+=======
+    top: -20px;  
+    overflow-y:scroll;
+    scrollbar-width: none;
+>>>>>>> 4e0e73b (front-end)
 }
 
 .list-info {
     width: 95%;
     height: 40px;
     position: relative;
+    top: -25px;
     left: 15px;
     display: flex;
     justify-content: space-around;
@@ -310,6 +350,7 @@ input:focus {
     cursor: pointer;
 }
 
+<<<<<<< HEAD
 
 /* Icon Component */
 .icon-container {
@@ -330,3 +371,23 @@ input:focus {
 .logout-tab:hover {
     filter: brightness(70%);
 }
+=======
+#searchButton {
+    width: 15%;
+    position: relative;
+    top: -47px;
+    left: 353px;
+}
+
+#allButton {
+    background-color: #DC3544;
+    width: 15%;
+    position: relative;
+    top: -47px;
+    left: 135px;
+}
+
+#allButton:hover {
+    background-color: #ae2b36;
+}
+>>>>>>> 4e0e73b (front-end)
