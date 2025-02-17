@@ -12,6 +12,6 @@
         die("Connection Failed: " . $conn->connect_error); 
         exit; 
     } else {
-        echo "Successfully Connected"; 
+        echo "Successfully Connected to db \n"; 
     }
 ?>
