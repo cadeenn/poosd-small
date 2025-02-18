@@ -17,12 +17,6 @@
 <body>
 
     <p class="heading">Contact Manager</p>
-    <div class="icon-container">
-        <a href="../../index.html">
-            <img class="logout-tab" src="./logoutLogo.png" alt="Logout">
-        </a>
-    </div>
-    
     
     <!-- Left Box Container -->
     <div class="left-container">
@@ -33,29 +27,14 @@
             <div class="add-component">
                 <div class="add-box">
 
-                    <p class="add-contact-title">Add Contact</p>
+                    <p>Add Contact</p>
 
                     <div class="add-items">
-<<<<<<< HEAD
-
-                        <p class="input-label">Name</p>
-
-                        <input type="text" class="input-text-box" placeholder="John Doe">
-
-                        <p class="input-label">Phone</p>
-    
-                        <input type="text" class="input-text-box" placeholder="XXX-XXX-XXXX">
-
-                        <p class="input-label">Email</p>
-                
-                        <input type="text" class="input-text-box" placeholder="johndoe@example.com">
-=======
                         <input type="text" class="input-text-box" id="nameText" placeholder="Name">
     
                         <input type="text" class="input-text-box" id="phoneNumber" placeholder="Phone">
                 
                         <input type="text" class="input-text-box" id="emailText" placeholder="Email">
->>>>>>> 4e0e73b (front-end)
     
                         <button class="add-button" id="addContactButton" onclick="addContact()">Add</button>   
                     </div>
@@ -67,11 +46,21 @@
 
     <!-- Right Box Container -->
     <div class="right-container">
+        <!-- Update Contact Window Example
+        <div class="update-container">
+            <button class="close-window">X</button> 
+            <p class="update-name">Alex Reyes<p>
+            <input class="update-phone"  placeholder="Change Phone"></input>
+            <input class="update-email"  placeholder="Change Email"></input>
+            <button class="update-contact">Update</button> 
+        </div>
+        -->
+
         <!-- Login Box Component -->
         <div class="login-container">
             <div class="login-box">
                 <div class="login-items">
-                    <p class="contact-list-label">Contact List</p>
+                    <p>Contact List</p>
 
                     <input type="text" class="input-text-box" id="searchText" placeholder="Search">
                     <button class="add-button" id="searchButton" onclick="searchContact()">Search</button>
@@ -88,14 +77,27 @@
 
                 <!-- Contact List Component -->
                 <div class="contact-list"> 
+                    <!-- Added Person Examples
+                    <div class="added-person">
+                        <p class="contact-list-name">John Doe</p>
+                        <p class="contact-list-phone">123-456-7890</p>
+                        <p class="contact-list-email">john@doe.example</p>
+                        <button class="update-button" onclick="updateWindow()">Update</button>
+                        <button class="delete-button">Delete</button> 
+                    </div>
 
+                    <div class="added-person">
+                        <p class="contact-list-name">Alex Reyes</p>
+                        <p class="contact-list-phone">098-765-4321</p>
+                        <p class="contact-list-email">alexdreyesz@outlook.com</p>
+                        <button class="update-button" onclick="updateWindow()">Update</button>
+                        <button class="delete-button">Delete</button> 
+                    </div>
+                    -->
                 </div>
 
             </div>
         </div>
-<<<<<<< HEAD
-    </div>    
-=======
     </div>
 
     <button class="logout-button" onclick="doLogout()">Log Out</button>
@@ -104,6 +106,5 @@
     <script src="../../JS/funtion.js"></script>
     <script src="../../JS/code.js"></script>
 
->>>>>>> 4e0e73b (front-end)
 </body>
 </html>

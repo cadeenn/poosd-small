@@ -42,20 +42,20 @@ p {
 
 .image-heading {
     position: relative;
-    top: 300px;
-    left: 100px;
-    color: white;
-    font-size: 35px;
+    top: 30px;
+    left: 150px;
+    color: black;
+    font-size: 28px;
     font-weight: bold;
     font-family: "Mona Sans", Arial, Helvetica, sans-serif;
 }
 
 .image-text {
     position: relative;
-    top: 280px;
-    left: 120px;
-    color: white;
-    font-size: 15spx;
+    top: 15px;
+    left: 150px;
+    color: black;
+    font-size: 12px;
     font-family: "Mona Sans", Arial, Helvetica, sans-serif;
 }
 
@@ -92,7 +92,7 @@ p {
 .contact-text {
     position: relative;
     top: 30px;
-    margin-left: -260px;
+    margin-left: -215px;
     color: #E5EBF2;
     font-size: 16px;
     font-weight: 500;
