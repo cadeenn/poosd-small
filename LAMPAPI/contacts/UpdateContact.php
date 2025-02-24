@@ -1,5 +1,7 @@
 <?php
     include "../db.php"; 
+    // TODO: add phone number 
+
     // incoming request 
     $data = json_decode(file_get_contents("php://input"), true);
 

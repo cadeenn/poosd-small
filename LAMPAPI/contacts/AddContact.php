@@ -1,6 +1,7 @@
 <?php
     include "../db.php"; 
     // incoming POST request 
+    
     $data = json_decode(file_get_contents("php://input"), true);
 
     // Checks to see if required params have been inputted

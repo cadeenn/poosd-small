@@ -12,6 +12,6 @@
         die("Connection Failed: " . $conn->connect_error); 
         exit; 
     } else {
-        echo "Successfully Connected to db \n"; 
+        // echo json_encode(["message" => "Successfully Connected to db"]); 
     }
 ?>
