@@ -1,4 +1,4 @@
-const urlBase = 'LAMPAPI';
+const urlBase = '/poosd-small/LAMPAPI'; 
 const extension = 'php';
 
 // API Endpoints
