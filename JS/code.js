@@ -1,9 +1,11 @@
-const urlBase = 'http://group6.cadeen.me';
+// const urlBase = 'http://group6.cadeen.me/LAMPAPI';
+const urlBase = 'https://hondurasoft.xyz/LAMPAPI';
 const extension = 'php';
 
 //API ENDPOINTS
 let AddContactEndPoint = `${urlBase}/AddContact.${extension}`;
 let deleteContactEndPoint = `${urlBase}/DeleteContact.${extension}`;
+let UpdateContactEndPoint = `${urlBase}/UpdateContact.${extension}`;
 let createEndPoint = `${urlBase}/Create.${extension}`;
 let loginEndPoint = `${urlBase}/Login.${extension}`;
 let searchContactEndPoint = `${urlBase}/SearchContact.${extension}`;
@@ -15,161 +17,6 @@ let email = "";
 let password = "";
 let userName = "";
 
-<<<<<<< HEAD
-document.getElementById("loginForm").addEventListener("submit", doLogin);
-
-function doLogin(event) {
-    console.log("is this workinggg");
-    event.preventDefault();
-
-    let login = document.getElementById("username").value;
-    let password = document.getElementById("password").value;
-
-    document.getElementById("loginResult").innerHTML = "";
-
-    if (login === "" || password === "") {
-        document.getElementById("loginResult").innerHTML = "Please enter both login and password.";
-        return;
-    }
-
-    let tmp = { username: login, password: password }; 
-    let jsonPayload = JSON.stringify(tmp);
-    let url = "http://group6.cadeen.me/LAMPAPI/users/login.php";
- 
-
-    console.log("doLogin still working"); //Checking
-
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-
-    xhr.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            console.log("Server Response:", xhr.responseText);
-            if (this.status == 200) {
-                let jsonObject = JSON.parse(xhr.responseText);
-                let userId = jsonObject.id;  // Declared with let
-                localStorage.setItem("userId", userId);
-
-                if (userId < 1) {
-                    document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
-                    return;
-                }
-
-                let firstName = jsonObject.firstName;  // Declared inside function
-                let lastName = jsonObject.lastName;
-
-                window.location.href = "search_contact.html";
-            } else {
-                document.getElementById("loginResult").innerHTML = "Error: " + xhr.status;
-            }
-        }
-    };
-
-    xhr.onerror = function () {
-        document.getElementById("loginResult").innerHTML = "Network error. Please try again.";
-    };
-
-    try {
-        xhr.send(jsonPayload);
-    } catch (err) {
-        document.getElementById("loginResult").innerHTML = "Request failed: " + err.message;
-    }
-}
-
-
-function doLogout()
-{
-	userId = 0;
-	firstName = "";
-	lastName = "";
-	document.cookie = "firstName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
-	window.location.href = "index.html";
-}
-
-function saveCookie()
-{
-	let minutes = 20;
-	let date = new Date();
-	date.setTime(date.getTime()+(minutes*60*1000));	
-	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId + ";expires=" + date.toGMTString();
-}
-
-function readCookie()
-{
-	userId = -1;
-	let data = document.cookie;
-	let splits = data.split(",");
-	for(var i = 0; i < splits.length; i++) 
-	{
-		let thisOne = splits[i].trim();
-		let tokens = thisOne.split("=");
-		if( tokens[0] == "firstName" )
-		{
-			firstName = tokens[1];
-		}
-		else if( tokens[0] == "lastName" )
-		{
-			lastName = tokens[1];
-		}
-		else if( tokens[0] == "userId" )
-		{
-			userId = parseInt( tokens[1].trim() );
-		}
-	}
-	
-	if( userId < 0 )
-	{
-		window.location.href = "index.html";
-	}
-	else
-	{
-//		document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
-	}
-}
-
-function addUser(event)
-{
-    event.preventDefault();
-    let firstName = document.getElementById("firstName").value;
-    let lastName = document.getElementById("lastName").value;
-    let username = document.getElementById("username").value;
-    let password = document.getElementById("password").value;
-
-    document.getElementById("userAddResult").innerHTML = "";
-
-    let tmp = {
-        firstname: firstName,
-        lastname: lastName, 
-        username: username, 
-        password: password
-    };
-
-    let jsonPayload = JSON.stringify( tmp );
-
-    let url = urlBase + '/AddUser.' + extension;
-
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-    try
-    {
-        xhr.onreadystatechange = function()
-        {
-            if (this.readyState == 4 && this.status == 200)
-            {
-                console.log("function triggered"); // Check if function is being called
-                document.getElementById("userAddedResult").innerHTML = "User has been added";
-                window.location.href = "index.html";
-            }
-        };
-        xhr.send(jsonPayload);
-    }
-    catch(err)
-    {
-        document.getElementById("userAddedResult").innerHTML = err.message;
-    }
-=======
 // Fucntion To Login To Contact Manager: index.html
 function doLogin() {
     userId = 0;
@@ -178,6 +25,8 @@ function doLogin() {
     email = "";
     password = "";
     userName = "";
+
+    let errorMessage = document.getElementsByClassName("error-message")[0];
 
     const button = document.getElementById("loginButton"); // Get Button To Change Its Color
 
@@ -189,7 +38,9 @@ function doLogin() {
 
         setTimeout(() => {
             button.style.backgroundColor = "#238636"; 
-        }, 650); 
+        }, 650);
+
+        errorMessage.innerHTML = "Empty Field";
 
 		return;
 	}
@@ -222,6 +73,8 @@ function doLogin() {
                     setTimeout(() => {
                         button.style.backgroundColor = "#238636"; 
                     }, 650); 
+
+                    errorMessage.innerHTML = "Wrong Credentials";
                     
 					return;
 				}
@@ -253,6 +106,8 @@ function doLogin() {
         }, 650); 
 
         console.log(err.message);
+
+        errorMessage.innerHTML = "Wrong Credentials";
         return;
     }
 }
@@ -276,7 +131,8 @@ function createUser() {
     let email = document.getElementById("emailText").value;
     let password = document.getElementById("loginPassword").value;
     let userName = document.getElementById("usernameText").value;
->>>>>>> 4e0e73b (front-end)
+
+    let errorMessage = document.getElementsByClassName("error-message")[0];
 
 	const button = document.getElementById("createUserButton");
 
@@ -286,6 +142,8 @@ function createUser() {
         setTimeout(() => {
             button.style.backgroundColor = "#238636"; 
         }, 650); 
+
+        errorMessage.innerHTML = "Empty Field";
 
 		return;
 	}
@@ -333,6 +191,8 @@ function createUser() {
             button.style.backgroundColor = "#238636"; 
         }, 650); 
 
+        errorMessage.innerHTML = "Something Went Wrong";
+
         console.log(err.message);
     }
 }
@@ -343,70 +203,8 @@ function addContact() {
     let contactPhone = document.getElementById("phoneNumber").value;
     let contactEmail = document.getElementById("emailText").value;
 
-<<<<<<< HEAD
-    event.preventDefault();
-    let name = document.getElementById("name").value;
-    let phone = document.getElementById("phone").value;
-    let email = document.getElementById("email").value;
-    let userId = localStorage.getItem("userId");
+    let errorMessage = document.getElementsByClassName("error-message")[0];
 
-    document.getElementById("contactAddResult").innerHTML = "";
-
-    let tmp = {
-        name: name,
-        phone: phone,
-        email: email,
-        userId: userId
-    };
-
-    let jsonPayload = JSON.stringify( tmp );
-
-    let url = urlBase + '/AddContact.' + extension;
-
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-    try
-    {
-        xhr.onreadystatechange = function()
-        {
-            if (this.readyState == 4 && this.status == 200)
-            {
-                console.log("function triggered"); 
-                document.getElementById("contactAddResult").innerHTML = "User has been added";
-                window.location.href = "search_contact.html";
-            }
-        };
-        xhr.send(jsonPayload);
-    }
-    catch(err)
-    {
-        document.getElementById("contactAddResult").innerHTML = err.message;
-    }
-
-}
-
-
-function searchContact() {
-    let srch = document.getElementById("searchText").value;
-    document.getElementById("userAddedResult").innerHTML = ""; 
-
-    let contactList = "";
-
-    let firstname = localStorage.getItem("firstName") || "Unknown";
-    let lastname = localStorage.getItem("lastName") || "Unknown";
-
-    let tmp = {
-        search: srch,
-        firstname: firstname,
-        lastname: lastname
-    };
-
-    console.log("Search data:", tmp); 
-}
-
-
-=======
     const button = document.getElementById("addContactButton");  // Get Button To Change Its Color
 
     if (contactName === "" || contactPhone === "" || contactEmail === "") {
@@ -416,8 +214,16 @@ function searchContact() {
             button.style.backgroundColor = "#238636"; 
         }, 650); 
 
+        errorMessage.innerHTML = "Empty Field"
+
 		return;
 	}
+
+    // Ensures Only Digits And Correct Format Are Inputed For Phone 
+    if (!/^\d{3}-\d{3}-\d{4}$/.test(contactPhone)) {
+        errorMessage.innerHTML = "Phone Number Format 123-456-7890";
+        return;
+    }
 
 	let tmp = {
         Name: contactName, 
@@ -444,6 +250,16 @@ function searchContact() {
                 setTimeout(() => {
                     button.style.backgroundColor = "#238636"; 
                 }, 650); 
+
+                searchAll();
+
+                let contactList = document.getElementsByClassName("contact-list");
+
+                setTimeout(() => {
+                    contactList.scrollTop = contactList.scrollHeight;
+                }, 1000);
+
+                errorMessage.innerHTML = "";
 			}
 		};
 
@@ -454,6 +270,8 @@ function searchContact() {
         setTimeout(() => {
             button.style.backgroundColor = "#238636"; 
         }, 650); 
+
+        errorMessage.innerHTML = "Something Went Wrong"
 
         console.log(err.message);
 	}
@@ -504,6 +322,148 @@ function deleteContact(id) {
 	}
 }
 
+// Function To Create The Window Of The Update Section
+function updateWindow(id) {
+    const parent = document.getElementById(id); 
+
+    let contactName = parent.querySelector('.contact-list-name').textContent.trim();
+    let contactPhone = parent.querySelector('.contact-list-phone').textContent.trim();
+    let contactEmail = parent.querySelector('.contact-list-email').textContent.trim();
+
+    let rightContainer = document.querySelector(".right-container");
+
+    let window = document.createElement(`div`);
+
+    window.className = "update-container";
+
+    rightContainer.appendChild(window);
+
+    let close = document.createElement(`button`);
+    let name = document.createElement(`p`);
+    let phone = document.createElement(`input`);
+    let email = document.createElement(`input`);
+    let errorMessage = document.createElement(`div`);
+    let update = document.createElement(`button`);
+
+    close.className = "close-window";
+    name.className = "update-name";
+
+    phone.type = "text";
+    phone.className = "update-phone";
+    phone.id = "UpdatePhoneNew";
+
+    email.type = "text";
+    email.className = "update-email";
+    email.id = "updateEmailNew";
+
+    errorMessage.className= "error-message-update";
+
+    update.className = "update-contact";
+    update.id = "contactUpdateButton";
+
+    close.innerHTML = "X";
+    name.innerHTML = contactName;
+    phone.placeholder = `Update Phone: ${contactPhone}`;
+    email.placeholder = `Update Email: ${contactEmail}`;
+    update.innerHTML = "Update";
+
+    close.addEventListener("click", function() {
+        window.remove();
+        searchAll();
+    });
+
+    update.addEventListener("click", function() {
+        updateContact(contactName);
+    });
+
+    window.appendChild(close);
+    window.appendChild(name);
+    window.appendChild(phone);
+    window.appendChild(email);
+    window.appendChild(errorMessage);
+    window.appendChild(update);
+
+    console.log(`Phone V: ${phone.value}`);
+    console.log(`Email V: ${email.value}`);
+
+    console.log(`Phone N: ${phone}`);
+    console.log(`Email N: ${email}`);
+}
+
+// Function To Update Contact: manager.html
+function updateContact(contactName) {
+    let phone = document.getElementById("UpdatePhoneNew").value;
+    let email = document.getElementById("updateEmailNew").value;
+    let phoneHolder = document.getElementById("UpdatePhoneNew");
+    let emailHolder = document.getElementById("updateEmailNew");
+    let button = document.getElementById("contactUpdateButton");
+
+    let errorMessage = document.getElementsByClassName("error-message-update")[0];
+
+    if(phone === "" || email === "") {
+
+        button.style.backgroundColor = '#ae2b36';
+
+        setTimeout(() => {
+            button.style.backgroundColor = "#238636"; 
+        }, 650); 
+
+        errorMessage.innerHTML = "Empty Field";
+
+        return;
+    }
+
+    // Ensures Only Digits And Correct Format Are Inputed For Phone 
+    if (!/^\d{3}-\d{3}-\d{4}$/.test(phone)) {
+        errorMessage.innerHTML = "Phone Number Format 123-456-7890";
+        return;
+    }
+
+	let tmp = {
+        Name: contactName, 
+        Phone: phone, 
+        Email: email
+    };
+
+	let jsonPayload = JSON.stringify(tmp);
+	
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", UpdateContactEndPoint, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+	try {
+		xhr.onreadystatechange = function() {
+            
+            if (this.readyState == 4 && this.status == 200) {
+                console.log("Contact Uploaded Successfully");
+
+                phoneHolder.placeholder = `Update Phone: ${phone}`;
+                emailHolder.placeholder = `Update Email: ${email}`;
+
+                phoneHolder.value = "";
+                emailHolder.value = "";
+
+                button.style.backgroundColor = 'blue';
+
+                setTimeout(() => {
+                    button.style.backgroundColor = "#238636"; 
+                }, 650); 
+
+                errorMessage.innerHTML = "";
+			} else {
+                console.log("Failed To Connect");
+                console.log("Error: " + this.status + " - " + this.statusText);
+                errorMessage.innerHTML = "Something Went Wrong";
+            }
+		};
+
+		xhr.send(jsonPayload);
+	} catch(err) {
+        console.log(err.message);
+        errorMessage.innerHTML = "Something Went Wrong";
+	}
+}
+
 // Function To Search Contacts: manager.html
 function searchContact() {
     let search = document.getElementById("searchText").value;
@@ -550,6 +510,15 @@ function searchContact() {
                         let phone = document.createElement('p');
                         let email = document.createElement('p');
                         let button = document.createElement('button');
+                        let update = document.createElement('button');
+
+                        let updateIcon = document.createElement('img');
+                        let deleteIcon = document.createElement('img');
+
+                        updateIcon.src = "../../Images/updateIcon.png"
+                        updateIcon.className = ""
+
+                        deleteIcon.src = "../../Images/deleteIcon.png"
 
                         name.className = "contact-list-name";
                         phone.className = "contact-list-phone";
@@ -557,7 +526,15 @@ function searchContact() {
 
                         newAddedPerson.className = "added-person";
                         newAddedPerson.id = `id${i}`;
-                        button.innerHTML = "Delete";
+
+                        update.appendChild(updateIcon)
+                        update.className = "update-button";
+
+                        update.addEventListener("click", function() {
+                            updateWindow(newAddedPerson.id);
+                        });
+
+                        button.appendChild(deleteIcon);
                         button.className = "delete-button";
 
                         button.addEventListener("click", function() {
@@ -568,10 +545,27 @@ function searchContact() {
                         phone.innerHTML = contact.Phone;
                         email.innerHTML = contact.Email;
 
-                        newAddedPerson.appendChild(name);
-                        newAddedPerson.appendChild(phone);
-                        newAddedPerson.appendChild(email);
-                        newAddedPerson.appendChild(button);
+                        let nameBox = document.createElement('div');
+                        let phoneBox = document.createElement('div');
+                        let emailBox = document.createElement('div');
+                        let actionsBox = document.createElement('div');
+
+                        nameBox.className = "name-list-box"
+                        phoneBox.className = "phone-list-box"
+                        emailBox.className = "email-list-box"
+                        actionsBox.className = "actions-list-box"
+
+
+                        nameBox.appendChild(name);
+                        phoneBox.appendChild(phone);
+                        emailBox.appendChild(email);
+                        actionsBox.appendChild(update)
+                        actionsBox.appendChild(button);
+
+                        newAddedPerson.appendChild(nameBox);
+                        newAddedPerson.appendChild(phoneBox);
+                        newAddedPerson.appendChild(emailBox);
+                        newAddedPerson.appendChild(actionsBox);
                     
                         showContact.appendChild(newAddedPerson);
 
@@ -630,6 +624,7 @@ function searchAll() {
                 if (jsonObject.results && jsonObject.results.length > 0) {
                     for (let i = 0; i < jsonObject.results.length; i++) {
 
+                        
                         let contact = jsonObject.results[i];
 
                         let newAddedPerson = document.createElement('div');
@@ -637,6 +632,15 @@ function searchAll() {
                         let phone = document.createElement('p');
                         let email = document.createElement('p');
                         let button = document.createElement('button');
+                        let update = document.createElement('button');
+
+                        let updateIcon = document.createElement('img');
+                        let deleteIcon = document.createElement('img');
+
+                        updateIcon.src = "../../Images/updateIcon.png"
+                        updateIcon.className = ""
+
+                        deleteIcon.src = "../../Images/deleteIcon.png"
 
                         name.className = "contact-list-name";
                         phone.className = "contact-list-phone";
@@ -644,7 +648,15 @@ function searchAll() {
 
                         newAddedPerson.className = "added-person";
                         newAddedPerson.id = `id${i}`;
-                        button.innerHTML = "Delete";
+
+                        update.appendChild(updateIcon)
+                        update.className = "update-button";
+
+                        update.addEventListener("click", function() {
+                            updateWindow(newAddedPerson.id);
+                        });
+
+                        button.appendChild(deleteIcon);
                         button.className = "delete-button";
 
                         button.addEventListener("click", function() {
@@ -655,10 +667,27 @@ function searchAll() {
                         phone.innerHTML = contact.Phone;
                         email.innerHTML = contact.Email;
 
-                        newAddedPerson.appendChild(name);
-                        newAddedPerson.appendChild(phone);
-                        newAddedPerson.appendChild(email);
-                        newAddedPerson.appendChild(button);
+                        let nameBox = document.createElement('div');
+                        let phoneBox = document.createElement('div');
+                        let emailBox = document.createElement('div');
+                        let actionsBox = document.createElement('div');
+
+                        nameBox.className = "name-list-box"
+                        phoneBox.className = "phone-list-box"
+                        emailBox.className = "email-list-box"
+                        actionsBox.className = "actions-list-box"
+
+
+                        nameBox.appendChild(name);
+                        phoneBox.appendChild(phone);
+                        emailBox.appendChild(email);
+                        actionsBox.appendChild(update)
+                        actionsBox.appendChild(button);
+
+                        newAddedPerson.appendChild(nameBox);
+                        newAddedPerson.appendChild(phoneBox);
+                        newAddedPerson.appendChild(emailBox);
+                        newAddedPerson.appendChild(actionsBox);
                     
                         showContact.appendChild(newAddedPerson);
 
@@ -811,4 +840,3 @@ function readCookie() {
     console.log("Last Name:", lastName);
     console.log("User ID:", userId);
 }
->>>>>>> 4e0e73b (front-end)
