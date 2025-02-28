@@ -1,35 +1,39 @@
 <?php
-    include "../db.php"; 
+    include "db.php"; 
     // incoming POST request 
     $data = json_decode(file_get_contents("php://input"), true);
 
     // Checks to see if required params have been inputted
-    if (!isset($data["firstName"]) || (!isset($data["lastName"])) || !isset($data['email'])) {
-        echo json_encode(["error" => "firstName, lastName and email are required fields"]); 
+    if (!isset($data["Name"]) || (!isset($data["Phone"])) || !isset($data["Email"])) {
+        echo json_encode(["success" => false, "message" => "Name, phone number and email are required fields"]); 
         exit; 
     }
     
-    if (!isset($data["ownerID"])) {
-        echo json_encode(["error" => "Did not receive ownerID to add new contact for user"]); 
+    if (!isset($data["UserId"])) {
+        echo json_encode(["success" => false, "message" => "Did not receive userId to add new contact for user"]); 
         exit; 
     }
 
     // Params for SQL Query    
-    $firstName = $data['firstName'];
-    $lastName = $data['lastName'];
-    $email = $data['email']; 
-    $ownerID = $data['ownerID'];     
+    $firstName = $data['Name'];
+    $phone = $data['Phone'];
+    $email = $data['Email']; 
+    $userId = $data['UserId'];     
 
-    // SQL query to insert data
-    $sql = "INSERT INTO Contacts (FirstName, LastName, email, ownerID) VALUES (?, ?, ?, ?)";
-    $stmt = $conn->prepare($sql); 
-    $stmt->bind_param("sssi", $firstName, $lastName, $email, $ownerID);  
+    try {
+        // SQL query to insert data
+        $stmt = $conn->prepare("INSERT INTO Contacts (Name, Phone, Email, UserId) VALUES (?, ?, ?, ?)"); 
+        $stmt->bind_param("sssi", $firstName, $phone, $email, $ownerID);  
 
-    // Executes SQL query and checks if it was valid 
-    if ($stmt->execute()) {
-        echo json_encode(["message" => "Contact has been added", "id" => $stmt->insert_id]);
-    } else {
-        echo json_encode(["error" => "Failed to create contact"]); 
+        // Executes SQL query and checks if it was valid 
+        if ($stmt->execute()) {
+            echo json_encode(["success" => true, "message" => "Contact has been added", "ID" => $stmt->insert_id]);
+        } else {
+            echo json_encode(["success" => false, "message" => "Failed to create contact", "ID" => NULL]); 
+        }
+    } catch (Exception $e) {
+        header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
+        echo json_encode(["success" => false, "message" => $e->getMessage()]);
     }
 
     $stmt->close();
