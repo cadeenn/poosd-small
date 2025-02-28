@@ -1,35 +1,65 @@
 <?php
-    include "../db.php"; 
+    include "db.php"; 
+    header("Content-Type: application/json; charset=UTF-8");
 
     // Incoming POST request
     $data = json_decode(file_get_contents("php://input"), true);
 
     // Checks to see if required params have been inputted
-    if (!isset($data["Username"]) || !isset($data["Password"]) || !isset($data[""])) {
-        echo json_encode(["error" => "Username and Password are required fields"]); 
+    if (!isset($data["Login"]) || !isset($data["Password"]) ||
+    !isset($data["FirstName"]) || !isset($data["LastName"]) || !isset($data["Email"])) {
+        echo json_encode(["success" => false, "message" => "All Fields have not been filled in"]);
         exit; 
     }
 
     // Params for SQL query 
-    $username = $data["username"]; 
-    $password = $data["password"]; 
+    $username = $data["Login"];
+    $firstName = $data["FirstName"]; 
+    $lastName = $data["LastName"]; 
+    $email = $data["Email"]; 
+    $password = $data["Password"]; 
 
-    // SQL query to insert data
+    // Builds and executes SQL query 
     try {
-        $stmt = $conn->prepare("INSERT INTO Users (Username, Password) VALUES (?, ?)");
-        $stmt->bind_param("ss", $username, $password); 
 
-        // Executes SQL query 
-        if ($stmt->execute()) {
-            echo json_encode(["message" => "Contact has been added", "id" => $stmt->insert_id]);
-        } else {
-            echo json_encode(["Error" => "Failed to create contact"]); 
+        // checks for duplicate usernames or emails within the database
+        $stmt = $conn->prepare("SELECT ID FROM Users WHERE Login = ? OR Email = ?");
+        $stmt->bind_param("ss", $username, $email);
+        $stmt->execute();
+        $stmt->store_result();
+
+        if ($stmt->num_rows > 0) {
+            echo json_encode(["success" => false, "message" => "Username or Email already exists", "ID" => NULL]);
+            $stmt->close();
+            $conn->close();
+            exit;
         }
-    }  catch (Exception $e) {
-        header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500); 
-        echo json_encode(["success" => false, "message" => $e->getMessage()]); 
+        $stmt->close();
+
+        $stmt = $conn->prepare("INSERT INTO Users (Login, FirstName, LastName, Email, Password) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssss", $username, $firstName, $lastName, $email, $password); 
+
+        if ($stmt->execute()) {
+            echo json_encode(["success" => true, "message" => "User, $username, has been created", "ID" => $stmt->insert_id]);
+        } else {
+            echo json_encode(["success" => false, "message" => "Could not add User at this time", "ID" => NULL]);
+        }
+    } catch(Exception $e){
+        header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
+        echo json_encode(["success" => false, "message" => $e->getMessage()]);
+
     }
 
+    // // SQL query to insert data
+    // $stmt = $conn->prepare("INSERT INTO Users (Username, Password) VALUES (?, ?)");
+    // $stmt->bind_param("ss", $username, $password); 
+
+    // // Executes SQL query 
+    // if ($stmt->execute()) {
+    //     echo json_encode(["message" => "Contact has been added", "id" => $stmt->insert_id]);
+    // } else {
+    //     echo json_encode(["Error" => "Failed to create contact"]); 
+    // }
 
     $stmt->close();
     $conn->close(); 
