@@ -23,7 +23,7 @@
         $user = $res->fetch_assoc();
 
         if ($user["ID"] && $user["Password"]) {
-            echo json_encode(["success" => true, "ID" => $user["ID"]]);
+            echo json_encode(["success" => true, "ID" => $user["ID"], "FirstName" => $user["FirstName"], "LastName" => $user["LastName"]]);
         } else {
             echo json_encode(["success" => false, "message" => "Invalid login credentials", "ID" => NULL]);
         }
