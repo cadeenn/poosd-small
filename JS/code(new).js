@@ -211,7 +211,8 @@ const deleteContact = async (id) => {
     await sendRequest(endpoints.deleteContact, {
       Name: contactName,
       Phone: contactPhone,
-      Email: contactEmail
+      Email: contactEmail,
+      UserId: session.userId
     });
     console.log("Contact Deleted Successfully");
   } catch (err) {

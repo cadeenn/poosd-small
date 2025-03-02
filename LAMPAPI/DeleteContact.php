@@ -1,29 +1,40 @@
 <?php
-    include "../db.php"; 
+    header("Content-Type: application/json; charset=UTF-8");
+    include "db.php"; 
+
     // incoming request 
     $data = json_decode(file_get_contents("php://input"), true);
 
     // Checks to see if required params have been inputted
-    if (!isset($data["firstName"]) || (!isset($data["lastName"])) || !isset($data['email'])) {
-        echo json_encode(["error" => "First Name, Last Name and email are required fields"]); 
+    if (!isset($data["Name"]) || (!isset($data["Phone"])) || !isset($data["Email"])) {
+        header($_SERVER['SERVER_PROTOCOL'] . ' 400 Internal Server Error', true, 400);
+        echo json_encode(["success" => false, "message" => "Name, phone number and email are required fields"]); 
         exit; 
     }
+
+    // Check if UserId have been received 
+    if (!isset($data["UserId"])) {
+        header($_SERVER['SERVER_PROTOCOL'] . ' 400 Internal Server Error', true, 400);
+        echo json_encode(["success" => false, "message" => "Did not receive userId to add new contact for user"]); 
+        exit; 
+    }
+
     // Params for SQL Query    
-    $firstName = $data['firstName'];
-    $lastName = $data['lastName'];
-    $email = $data['email']; 
-    $ownerID = $data['ownerID'];     
+    $name = $data['Name'];
+    $phone = $data['Phone'];
+    $email = $data['Email']; 
+    $userId = $data['UserId'];     
 
-    // SQL query to insert data
-    $sql = "DELETE FROM Contacts WHERE FirstName = ? AND LastName = ? AND Email = ? AND OwnerID = ?";
-    $stmt = $conn->prepare($sql); 
-    $stmt->bind_param("sssi", $firstName, $lastName, $email, $ownerID);  
-
-    // Executes SQL query and checks if it was valid 
-    if ($stmt->execute()) {
-        echo json_encode(["message" => "Contact has been deleted"]);
-    } else {
-        echo json_encode(["message" => "Failed to delete contact"]); 
+    try {
+        $stmt = $conn->prepare("DELETE FROM Contacts WHERE Name = ? AND Phone = ? AND Email = ? AND UserId = ?");
+        $stmt-> bind_param("sssi", $name, $phone, $email, $userId); 
+        
+        if (($stmt->execute())) {
+            echo "Contact was deleted"; 
+        } 
+    } catch (Exception $e) {
+        header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
+        echo json_encode(["success" => false, "message" => $e->getMessage()]);
     }
 
     $stmt->close();
