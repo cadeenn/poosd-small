@@ -201,17 +201,13 @@ const addContact = async () => {
 // Delete contact function
 const deleteContact = async (id) => {
   const parent = document.getElementById(id);
-  const contactName = parent.querySelector('.contact-list-name').textContent.trim();
-  const contactPhone = parent.querySelector('.contact-list-phone').textContent.trim();
-  const contactEmail = parent.querySelector('.contact-list-email').textContent.trim();
+  const contactId = parent.getAttribute('data-contact-id');
   
   parent.remove();
   
   try {
     await sendRequest(endpoints.deleteContact, {
-      Name: contactName,
-      Phone: contactPhone,
-      Email: contactEmail,
+      ID: contactId,
       UserId: session.userId
     });
     console.log("Contact Deleted Successfully");
@@ -223,6 +219,7 @@ const deleteContact = async (id) => {
 // Update window function
 const updateWindow = (id) => {
   const parent = document.getElementById(id);
+  const contactId = parent.getAttribute('data-contact-id');
   const contactName = parent.querySelector('.contact-list-name').textContent.trim();
   const contactPhone = parent.querySelector('.contact-list-phone').textContent.trim();
   const contactEmail = parent.querySelector('.contact-list-email').textContent.trim();
@@ -231,6 +228,7 @@ const updateWindow = (id) => {
   // Create update window container
   const window = document.createElement('div');
   window.className = "update-container";
+  window.setAttribute('data-contact-id', contactId);
   rightContainer.appendChild(window);
   
   // Create window elements
@@ -274,7 +272,7 @@ const updateWindow = (id) => {
   });
   
   elements.update.addEventListener("click", () => {
-    updateContact(contactName);
+    updateContact(contactId, contactName);
   });
   
   // Append elements to container
@@ -282,7 +280,7 @@ const updateWindow = (id) => {
 };
 
 // Update contact function
-const updateContact = async (contactName) => {
+const updateContact = async (contactId, contactName) => {
   const phone = document.getElementById("UpdatePhoneNew").value;
   const email = document.getElementById("updateEmailNew").value;
   const phoneHolder = document.getElementById("UpdatePhoneNew");
@@ -302,6 +300,8 @@ const updateContact = async (contactName) => {
   
   try {
     await sendRequest(endpoints.updateContact, {
+      UserId: session.userId,
+      ID: contactId,
       Name: contactName,
       Phone: phone,
       Email: email
@@ -332,6 +332,8 @@ const createContactElement = (contact, index) => {
   const newAddedPerson = document.createElement('div');
   newAddedPerson.className = "added-person";
   newAddedPerson.id = `id${index}`;
+  // Store the contact ID as a data attribute
+  newAddedPerson.setAttribute('data-contact-id', contact.ID);
   
   // Create elements
   const elements = {
