@@ -35,16 +35,6 @@
 
     }
     
-    // // Executes SQL query and checks if it was valid 
-    // if ($stmt->execute()){
-    //     $res = $stmt->get_result();
-    //     $contacts = $res->fetch_all(MYSQLI_ASSOC);
-    //     echo json_encode($contacts); 
-    // } else {
-    //     echo json_encode(["error" => "Could not get contacts for $ownerID"]); 
-    //     exit; 
-    // }
-
     $stmt->close();
     $conn->close(); 
 
