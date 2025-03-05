@@ -2,36 +2,29 @@
     header("Content-Type: application/json; charset=UTF-8");
     include "db.php"; 
 
-    // incoming request 
+    // Incoming request 
     $data = json_decode(file_get_contents("php://input"), true);
 
-    // Checks to see if required params have been inputted
-    if (!isset($data["Name"]) || (!isset($data["Phone"])) || !isset($data["Email"])) {
-        header($_SERVER['SERVER_PROTOCOL'] . ' 400 Internal Server Error', true, 400);
-        echo json_encode(["success" => false, "message" => "Name, phone number and email are required fields"]); 
+    // Check if required parameters are provided
+    if (!isset($data["ContactId"]) || !isset($data["UserId"])) {
+        header($_SERVER['SERVER_PROTOCOL'] . ' 400 Bad Request', true, 400);
+        echo json_encode(["success" => false, "message" => "ContactId and UserId are required"]); 
         exit; 
     }
 
-    // Check if UserId have been received 
-    if (!isset($data["UserId"])) {
-        header($_SERVER['SERVER_PROTOCOL'] . ' 400 Internal Server Error', true, 400);
-        echo json_encode(["success" => false, "message" => "Did not receive userId to add new contact for user"]); 
-        exit; 
-    }
-
-    // Params for SQL Query    
-    $name = $data['Name'];
-    $phone = $data['Phone'];
-    $email = $data['Email']; 
+    // Parameters for SQL Query    
+    $contactId = $data['ContactId'];
     $userId = $data['UserId'];     
 
     try {
-        $stmt = $conn->prepare("DELETE FROM Contacts WHERE Name = ? AND Phone = ? AND Email = ? AND UserId = ?");
-        $stmt-> bind_param("sssi", $name, $phone, $email, $userId); 
+        $stmt = $conn->prepare("DELETE FROM Contacts WHERE ContactId = ? AND UserId = ?");
+        $stmt->bind_param("ii", $contactId, $userId); 
         
-        if (($stmt->execute())) {
-            echo "Contact was deleted"; 
-        } 
+        if ($stmt->execute()) {
+            echo json_encode(["success" => true, "message" => "Contact was deleted"]);
+        } else {
+            echo json_encode(["success" => false, "message" => "Failed to delete contact"]);
+        }
     } catch (Exception $e) {
         header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
         echo json_encode(["success" => false, "message" => $e->getMessage()]);
