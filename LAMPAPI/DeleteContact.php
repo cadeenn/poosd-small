@@ -6,18 +6,18 @@
     $data = json_decode(file_get_contents("php://input"), true);
 
     // Check if required parameters are provided
-    if (!isset($data["ContactId"]) || !isset($data["UserId"])) {
+    if (!isset($data["ID"]) || !isset($data["UserId"])) {
         header($_SERVER['SERVER_PROTOCOL'] . ' 400 Bad Request', true, 400);
-        echo json_encode(["success" => false, "message" => "ContactId and UserId are required"]); 
+        echo json_encode(["success" => false, "message" => "ID and UserId are required"]); 
         exit; 
     }
 
     // Parameters for SQL Query    
-    $contactId = $data['ContactId'];
+    $contactId = $data['ID'];
     $userId = $data['UserId'];     
 
     try {
-        $stmt = $conn->prepare("DELETE FROM Contacts WHERE ContactId = ? AND UserId = ?");
+        $stmt = $conn->prepare("DELETE FROM Contacts WHERE ID = ? AND UserId = ?");
         $stmt->bind_param("ii", $contactId, $userId); 
         
         if ($stmt->execute()) {
